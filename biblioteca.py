@@ -19,6 +19,7 @@ def carica_da_file(file_path):
         return None
 
 
+
 def aggiungi_libro(lista, biblioteca, titolo, autore, anno, pagine, sezione, file_path):
     """Aggiunge un libro nella biblioteca"""
     # TODO

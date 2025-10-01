@@ -1,11 +1,31 @@
 def carica_da_file(file_path):
     """Carica i libri dal file"""
     # TODO
+    try:
+        with open("biblioteca.csv", "r") as biblioteca:
+            lista = []
+            for line in biblioteca:
+                riga = line.split(",")
+                if len(riga) == 5:
+                    lista.append({"Titolo": riga[0], "Autore": riga[1],
+                                  "Anno": int(riga[2]), "N_pagine": int(riga[3]), "N_sezione": int(riga[4])})
+                else:
+                    continue
+            biblioteca.close()
+            print(lista)
+            return lista
+
+    except FileNotFoundError:
+        return None
 
 
-def aggiungi_libro(biblioteca, titolo, autore, anno, pagine, sezione, file_path):
+def aggiungi_libro(lista, biblioteca, titolo, autore, anno, pagine, sezione, file_path):
     """Aggiunge un libro nella biblioteca"""
     # TODO
+    try:
+        with open("biblioteca.csv", "a") as biblioteca:
+            input("Inserisci, separate da virgole: il titolo del libro, l'autore, l'anno di pubblicazione, il numero di pagine, la sezione")
+
 
 
 def cerca_libro(biblioteca, titolo):

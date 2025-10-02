@@ -23,10 +23,31 @@ def carica_da_file(file_path):
 def aggiungi_libro(lista, biblioteca, titolo, autore, anno, pagine, sezione, file_path):
     """Aggiunge un libro nella biblioteca"""
     # TODO
-    try:
-        with open("biblioteca.csv", "a") as biblioteca:
-            input("Inserisci, separate da virgole: il titolo del libro, l'autore, l'anno di pubblicazione, il numero di pagine, la sezione")
+    lunghezzaLista = len(lista)
+    Num_sezioni = []
 
+    for libro in lista:
+        if libro["Titolo"] == titolo: #and libro["Autore"] ==autore and libro["Anno"]==anno and libro["N_pagine"]==pagine and libro["N_sezione"]==sezione:
+           return None
+        Num_sezioni.append(libro["N_sezione"])
+
+    if sezione not in Num_sezioni:
+        return None
+
+    lista.append({"Titolo": titolo, "Autore": autore,
+                  "Anno": int(anno), "N_pagine": int(pagine), "N_sezione": int(sezione)})
+
+    if lunghezzaLista < len(lista):  # per verificare il corretto inserimento del libro
+        print("Libro inserito con successo")
+
+    try:
+        with open(file_path, "a") as biblioteca:
+            libroNuovo = f"{titolo},{autore},{anno},{pagine},{sezione}\n"
+            biblioteca.write(libroNuovo)
+
+
+    except FileNotFoundError:
+        return None
 
 
 def cerca_libro(biblioteca, titolo):

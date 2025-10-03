@@ -24,25 +24,20 @@ def aggiungi_libro(biblioteca, titolo, autore, anno, pagine, sezione, file_path)
     # TODO
     lunghezzaLista = len(biblioteca)
     Num_sezioni = []
-
-
-    for libro in biblioteca:
-        if libro["Titolo"] == titolo: #and libro["Autore"] ==autore and libro["Anno"]==anno and libro["N_pagine"]==pagine and libro["N_sezione"]==sezione:
-           return None
-        Num_sezioni.append(libro["N_sezione"])
-
-    if sezione not in Num_sezioni:
-        return None
-
-    biblioteca.append({"Titolo": titolo, "Autore": autore,
-                  "Anno": int(anno), "N_pagine": int(pagine), "N_sezione": int(sezione)})
-
     try:
         with open(file_path, "a") as file:
+            for libro in biblioteca:
+                if libro["Titolo"] == titolo:  # and libro["Autore"] ==autore and libro["Anno"]==anno and libro["N_pagine"]==pagine and libro["N_sezione"]==sezione:
+                    return None
+                    Num_sezioni.append(libro["N_sezione"])
+                if sezione not in Num_sezioni:
+                    return None
             libroNuovo = f"{titolo},{autore},{anno},{pagine},{sezione}\n"
             file.write(libroNuovo)
     except FileNotFoundError:
         return None
+    biblioteca.append({"Titolo": titolo, "Autore": autore,
+                       "Anno": int(anno), "N_pagine": int(pagine), "N_sezione": int(sezione)})
 
     libro = [titolo, autore, anno, pagine, sezione]
     return libro
@@ -57,8 +52,6 @@ def cerca_libro(biblioteca, titolo):
         if titolo == libro["Titolo"]:
             risultato = libro
             return risultato
-        else:
-            return None
 
 def elenco_libri_sezione_per_titolo(biblioteca, sezione):
     """Ordina i titoli di una data sezione della biblioteca in ordine alfabetico"""
